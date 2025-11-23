@@ -1,5 +1,5 @@
 import Card from "./Card";
-import { getRnumber } from "../utils";
+import { getRnumber } from "../Utils";
 
 interface Suits {
   name: string;
@@ -7,6 +7,7 @@ interface Suits {
 }
 
 class CardDeck {
+  
   cards: Card[] = [];
 
   _suits: Suits[] = [
@@ -16,16 +17,16 @@ class CardDeck {
     { name: "spades", value: "♠️" },
   ];
 
-  _ranks: (string | number)[] = [
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
+  _ranks: (string)[] = [
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
     "J",
     "Q",
     "K",
@@ -40,17 +41,27 @@ class CardDeck {
       }
     }
 
-    this._shuffle();
+     this._shuffle();
   }
 
   getCard(): Card {
-    const ind = getRnumber(0, this.cards.length);
+
+    const ind = getRnumber(0, this.cards.length );
     let card: Card = this.cards[ind];
     this.cards.splice(ind, 1);
     return card;
   }
 
   getCards(cuant: number): Card[] {
+
+      if (this.cards.length < 1) {
+        throw new Error("Колода коньчилась");
+      };
+
+      if (this.cards.length < cuant) {
+        cuant = this.cards.length;
+      };
+
     let chosen: Card[] = [];
     for (let i = 0; i < cuant; i++) {
       chosen.push(this.getCard());
@@ -65,6 +76,6 @@ class CardDeck {
       [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
     }
   }
-}
+};
 
 export default CardDeck;

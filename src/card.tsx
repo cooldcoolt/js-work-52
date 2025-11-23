@@ -1,24 +1,24 @@
 
 
-const ranksArray: (string | number)[] = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
 
+interface CardProps {
+  rank: string;
+  suit: string;
+  name: string;
+}
 
-const suitsArray = {
-'diams': '♦️',
-'clubs': '♥️',
-'hearts': '♣️', 
-'spades' : '♠️'
-
-};
-
-
-const Card: React.FC = ({rank, suit}) => {
+const Card: React.FC<CardProps> = ({rank, suit, name }) => {
+  let low = isNaN(Number(rank)) ? rank.toLowerCase() : rank;
   return (
-    <span className="card rank-k diams">
-      <span className="rank">K</span>
-      <span className="suit">♦️</span>
+  <span className={"card rank-" + low + " " + name}>
+      <span className="rank">{rank}</span>
+      <span className="suit">{suit}</span>
     </span>
   );
 };
 
 export default Card;
+
+
+    // <span className="card rank-k diams"></span>
+
